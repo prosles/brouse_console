@@ -22,9 +22,31 @@ function solveEquation(a, b, c) {
 }
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
-  let totalAmount = amount - contribution;
-  const date = new Date();
-  console.log(Number(percent)); 
+//percent (процентная ставка), contribution (сумма первоначального взноса), сумму кредита (amount) и срок (дату окончания кредита) (date)
+//  выдавать сумму, которую в итоге заплатит клиент 
+// (первоначальный взнос, погашение основного долга, проценты за пользование кредитом)., , , date
+
+  let totalAmount; 
+  let bodyCredit = amount - contribution; //тело кердита
+
+  // Посчитайте на какой срок был выдан кредит (в месяцах).
+  let p = percent*(1/12); //число от процентной ставки
+  let start = new Date;
+  let end = new Date();
+  let term = end.getTime() - start.getTime(); //разница дат
+
+
+  let paymentInMounth = bodyCredit * (p +(p / (((1+p)**n) - 1)))
+
+
+  // Платеж = S * (P + (P / (((1 + P)^n) - 1))), 
+  // где: S - тело кредита, P - 1/12 процентной ставки (от 0 до 1), n - количество месяцев ^ - возведение в степень
+
+
+
+
+  // const date = new Date();
+  // console.log(Number(percent)); 
 
  
 
