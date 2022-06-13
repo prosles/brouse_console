@@ -1,5 +1,3 @@
-// 'use strict';
-
 // Задание 1
   function getArrayParams(arr) {
     let min, max, sum, avg;
@@ -26,29 +24,59 @@
     }
   
    getArrayParams([-99, 99, 10]);
+   getArrayParams([1, 2, 3, -100, 10]);
+   getArrayParams([5]);
 
 
 
 
 // Задание 2
-// function worker(arr) {
-//   let sum;
+function worker(arr) {
+  let sum = 0;
+  for (let i=0; i < arr.length; i++) {
+    sum += arr[i];
+  } 
+return sum;
+}
 
-//   // Ваш код
-
-//   return sum;
-// }
-
-// function makeWork(arrOfArr, func) {
-//   let max;
-
-//   // Ваш кода
-//   // for ...
+function makeWork(arrOfArr, func) {
+  let sumArr = [];
   
-//   return max;
-// }
+   for (let i=0; i < arrOfArr.length; i++) {
+     sumArr.push(func(arrOfArr[i]));     
+    }
+  
+  let max = sumArr[0];
 
-// // Задание 3
-// function worker2(arr) {
-//   // Ваш код
-// }
+    for (let i=0; i < sumArr.length; i++) {
+       if (max < (sumArr[i])){
+      max = sumArr[i];
+     }
+     
+   }
+  return max;
+
+  
+}
+
+// Задание 3
+function worker2(arr){
+  let max = arr[0];
+  let min = arr[0];
+
+  for (let i=0; i < arr.length; i++){
+    if (max < arr[i]) {
+      max = arr[i];
+    }
+
+    if (min > arr[i]) {
+      min = arr[i];
+    }
+  }
+
+  let difference = Math.abs(max - min);
+
+  return difference
+}
+
+
