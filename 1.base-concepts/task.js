@@ -3,15 +3,12 @@
 function solveEquation(a, b, c) {
   let arr;
   let d = b**(2)-4*a*c;
-
   if (d < 0) {
     arr = []; //корней нет;
   }
-
   if (d === 0 ) {
     arr = [(-b/(2*a))]; //один корень;
   }
-
   if ( d > 0) {
     arr = [
       (-b + Math.sqrt(d) )/(2*a), //первый корень;
@@ -23,34 +20,42 @@ function solveEquation(a, b, c) {
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
 //percent (процентная ставка), contribution (сумма первоначального взноса), сумму кредита (amount) и срок (дату окончания кредита) (date)
-//  выдавать сумму, которую в итоге заплатит клиент 
-// (первоначальный взнос, погашение основного долга, проценты за пользование кредитом)., , , date
 
   let totalAmount; 
+
+  if (isNaN(percent)) {
+    console.log('Параметр "Процентная ставка" содержит неправильное значение "'  + percent + '"'); 
+    totalAmount = 'Параметр "Процентная ставка" содержит неправильное значение "'  + percent + '"';
+    return(totalAmount);
+  } else if (isNaN(contribution)) {
+    console.log('Параметр "Начальный взнос" содержит неправильное значение "'  + contribution + '"'); 
+    totalAmount = 'Параметр "Начальный взнос" содержит неправильное значение "'  + contribution + '"';
+    return(totalAmount);
+  } else if (isNaN(amount)) {
+    console.log('Параметр "Общая стоимость" содержит неправильное значение "'  + amount + '"'); 
+    totalAmount = 'Параметр "Общая стоимость" содержит неправильное значение "'  + amount + '"';
+    return(totalAmount);
+  } else {
+    percent = Number(percent);
+    contribution = Number(contribution);
+    amount = Number(amount);
+
   let bodyCredit = amount - contribution; //тело кердита
 
-  // Посчитайте на какой срок был выдан кредит (в месяцах).
-  let p = percent*(1/12); //число от процентной ставки
-  let start = new Date;
-  let end = new Date();
-  let term = end.getTime() - start.getTime(); //разница дат
+  
+  percent = percent/1200; //число от процентной ставки
+  let start = Date.now(); // текущяя дата
+  let end = date.getTime(); // введенная дата
+  let term = (end - start)/(60 * 60 * 1000 * 24 * 30.42); //разница дат, разницу делим на колво миллисек в месяце*/
+  /*считаем в миллисек - 1000 в секунде, 60 в минуте, 60 в часе, 24 в сутках, среднее колво дней в месяце 30.42*/
+  term = Math.round(term);
 
+  let paymentInMounth = bodyCredit * (percent + (percent / (((1 + percent) ** term) - 1)));
+  totalAmount = (paymentInMounth * term).toFixed(2);
+  totalAmount = Number(totalAmount);
+  console.log(totalAmount);
 
-  let paymentInMounth = bodyCredit * (p +(p / (((1+p)**n) - 1)))
-
-
-  // Платеж = S * (P + (P / (((1 + P)^n) - 1))), 
-  // где: S - тело кредита, P - 1/12 процентной ставки (от 0 до 1), n - количество месяцев ^ - возведение в степень
-
-
-
-
-  // const date = new Date();
-  // console.log(Number(percent)); 
-
- 
-
-  // console.log(totalAmount.toFixed(2)); //округление до 2 цифр после запятой
   
   return totalAmount;
 }
+};
