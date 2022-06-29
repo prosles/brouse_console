@@ -65,51 +65,56 @@ class DetectiveBook extends Book {
 
 
 //Задание 2
-
-class Library {
-    constructor(name, books) {
+class Student {
+    constructor(name) {
         this.name = name;
-        this.books = [];
+        this.journal = {};
     }
-
-    addBook(book) {
-        this.books = [book];
-        if (this.state > 30) {
-            this.books.push(book);
-        }
-    } 
-
-    findBookBy(type, value) {
-        for(let i = 0; i < this.books.length; i++) {
-             if(this.books[i][type] === value) {
-                 return this.books[i];
-             } 
-        }
-        return null;
-        }
-    
-    giveBookByName(bookName) {
-        for(let i = 0; i < this.books.length; i++) {
-            if (this.books[i].name === bookName) {
-                 return  this.books.splice(i, 1)[0];
-            }
-        }
-        return null;
+        
+    setSubject(subjectName) {
+        if (this.journal.hasOwnProperty(subjectName) === true) {
+             return console.log("Предмет уже существует");
+        } else {
+            this.journal[subjectName] = [];
         }
     }
-
-    const library = new Library("Библиотека имени Ленина");
-
-    library.addBook(new DetectiveBook("Артур Конан Дойл", "Полное собрание повестей и рассказов о Шерлоке Холмсе в одном томе", 2019, 1008));
-    library.addBook(new FantasticBook("Аркадий и Борис Стругацкие", "Пикник на обочине", 1972, 168));
-    library.addBook(new NovelBook("Герберт Уэллс", "Машина времени", 1895, 138));
-    library.addBook(new Magazine("Мурзилка", 1924, 60));
     
-    console.log(library.findBookBy("name", "Властелин колец")); //null
-    console.log(library.findBookBy("releaseDate", 1924).name); //"Мурзилка"
+    addMark(mark, subjectName) {
+        if (this.journal.hasOwnProperty(subjectName) !== true) {
+            this.journal[subjectName] = [];
+            console.log("Несуществующий предмет. Предмет создан");
+        }
+        if((typeof mark === "number") && (mark >= 1) && (mark <= 5)) {
+            this.journal[subjectName].push(mark); 
+        } else {
+            return console.log("Ошибка, оценка должна быть числом от 1 до 5");
+            }  
+        }
     
-    console.log("Количество книг до выдачи: " + library.books.length); //Количество книг до выдачи: 4
-    library.giveBookByName("Машина времени");
-    console.log("Количество книг после выдачи: " + library.books.length); //Количество книг после выдачи: 3
- 
-
+    getAverageBySubject(subjectName) {
+        if (this.journal.hasOwnProperty(subjectName) === true) {
+            let sum = 0;
+            let marks = this.journal[subjectName];
+            marks.forEach((item, idx, marks) => sum += item);
+            let averageBySubject = sum / marks.length;
+            return averageBySubject;
+        } else {
+            return console.log("Несуществующий предмет");
+        }
+    }
+    
+    getAverage() { 
+        let sum = 0;
+        let marks = Object.values(this.journal);
+        let resultMarks = [];
+        marks.forEach((item, idx, marks) => resultMarks = [].concat(resultMarks, item));
+        resultMarks.forEach((item, idx, resultMarks) => sum += item);
+        let average = sum / resultMarks.length;
+        return average;
+        }
+        
+    exclude(reason) { 
+        delete this.journal;
+        this.excluded = reason;
+        }
+    }
